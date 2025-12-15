@@ -1,9 +1,9 @@
-<%= form_with(model: hobby) do |form| %>
+<%= form_with(model: hobby, class: "card card-body shadow-sm") do |form| %>
   <% if hobby.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(hobby.errors.count, "error") %> prohibited this hobby from being saved:</h2>
+    <div class="alert alert-danger">
+      <h2 class="h6 mb-2"><%= pluralize(hobby.errors.count, "error") %> prohibited this hobby from being saved:</h2>
 
-      <ul>
+      <ul class="mb-0">
         <% hobby.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

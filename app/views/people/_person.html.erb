@@ -1,17 +1,18 @@
-<div id="<%= dom_id person %>">
-  <div>
-    <strong>First name:</strong>
-    <%= person.first_name %>
-  </div>
+<div id="<%= dom_id person %>" class="card h-100">
+  <div class="card-body">
+    <h2 class="h5 card-title mb-3">
+      <%= [person.first_name, person.last_name].compact.join(" ") %>
+    </h2>
 
-  <div>
-    <strong>Last name:</strong>
-    <%= person.last_name %>
-  </div>
+    <dl class="row mb-0">
+      <dt class="col-sm-4">First name</dt>
+      <dd class="col-sm-8"><%= person.first_name %></dd>
 
-  <div>
-    <strong>Birth date:</strong>
-    <%= person.birth_date %>
-  </div>
+      <dt class="col-sm-4">Last name</dt>
+      <dd class="col-sm-8"><%= person.last_name %></dd>
 
+      <dt class="col-sm-4">Birth date</dt>
+      <dd class="col-sm-8"><%= person.birth_date %></dd>
+    </dl>
+  </div>
 </div>

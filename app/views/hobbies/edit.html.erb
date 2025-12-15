@@ -1,12 +1,14 @@
 <% content_for :title, "Editing hobby" %>
 
-<h1>Editing hobby</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Editing hobby</h1>
+  <%= link_to "Back to hobbies", hobbies_path, class: "btn btn-outline-secondary" %>
+</div>
 
-<%= render "form", hobby: @hobby %>
-
-<br>
+<div class="mb-3">
+  <%= render "form", hobby: @hobby %>
+</div>
 
 <div>
-  <%= link_to "Show this hobby", @hobby %> |
-  <%= link_to "Back to hobbies", hobbies_path %>
+  <%= link_to "Show this hobby", @hobby, class: "btn btn-link p-0" %>
 </div>

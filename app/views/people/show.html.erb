@@ -1,10 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 
-<%= render @person %>
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <%= render @person %>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this person", edit_person_path(@person) %> |
-  <%= link_to "Back to people", people_path %>
-
-  <%= button_to "Destroy this person", @person, method: :delete %>
+<div class="d-flex flex-wrap gap-2">
+  <%= link_to "Edit this person", edit_person_path(@person), class: "btn btn-primary" %>
+  <%= link_to "Back to people", people_path, class: "btn btn-outline-secondary" %>
+  <%= button_to "Destroy this person", @person, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
 </div>

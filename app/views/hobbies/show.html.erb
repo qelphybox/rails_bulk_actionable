@@ -1,10 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 
-<%= render @hobby %>
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <%= render @hobby %>
+  </div>
+</div>
 
-<div>
-  <%= link_to "Edit this hobby", edit_hobby_path(@hobby) %> |
-  <%= link_to "Back to hobbies", hobbies_path %>
-
-  <%= button_to "Destroy this hobby", @hobby, method: :delete %>
+<div class="d-flex flex-wrap gap-2">
+  <%= link_to "Edit this hobby", edit_hobby_path(@hobby), class: "btn btn-primary" %>
+  <%= link_to "Back to hobbies", hobbies_path, class: "btn btn-outline-secondary" %>
+  <%= button_to "Destroy this hobby", @hobby, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
 </div>

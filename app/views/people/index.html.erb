@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "People" %>
 
-<h1>People</h1>
-
-<div id="people">
-  <% @people.each do |person| %>
-    <%= render person %>
-    <p>
-      <%= link_to "Show this person", person %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">People</h1>
+  <%= link_to "New person", new_person_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New person", new_person_path %>
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<div id="people" class="row row-cols-1 row-cols-md-2 g-3">
+  <% @people.each do |person| %>
+    <div class="col">
+      <%= render person %>
+      <div class="mt-2">
+        <%= link_to "Show this person", person, class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Hobbies" %>
 
-<h1>Hobbies</h1>
-
-<div id="hobbies">
-  <% @hobbies.each do |hobby| %>
-    <%= render hobby %>
-    <p>
-      <%= link_to "Show this hobby", hobby %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Hobbies</h1>
+  <%= link_to "New hobby", new_hobby_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New hobby", new_hobby_path %>
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<div id="hobbies" class="row row-cols-1 row-cols-md-2 g-3">
+  <% @hobbies.each do |hobby| %>
+    <div class="col">
+      <%= render hobby %>
+      <div class="mt-2">
+        <%= link_to "Show this hobby", hobby, class: "btn btn-sm btn-outline-secondary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
