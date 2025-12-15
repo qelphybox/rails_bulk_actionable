@@ -1,17 +1,81 @@
 <% content_for :title, "People" %>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="h3 mb-0">People</h1>
-  <%= link_to "New person", new_person_path, class: "btn btn-primary" %>
-</div>
+<div
+  data-controller="bulk-actionable"
+  data-bulk-actionable-controller-path-value="<%= people_path %>"
+  data-bulk-actionable-total-items-value="<%= bulk_action_total_items %>"
+  data-bulk-actionable-selected-items-value="<%= bulk_action_item_ids.to_a.to_json %>">
 
-<div id="people" class="row row-cols-1 row-cols-md-2 g-3">
-  <% @people.each do |person| %>
-    <div class="col">
-      <%= render person %>
-      <div class="mt-2">
-        <%= link_to "Show this person", person, class: "btn btn-sm btn-outline-secondary" %>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center gap-3">
+      <h1 class="h3 mb-0">People</h1>
+
+      <div class="form-check mb-0">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="people-main-checkbox"
+          data-bulk-actionable-target="mainCheckbox"
+          data-action="click->bulk-actionable#toggleMainCheckbox">
+        <label class="form-check-label" for="people-main-checkbox">
+          Select page
+        </label>
       </div>
     </div>
-  <% end %>
+
+    <div data-bulk-actionable-target="showWhenSelected">
+      <%= link_to "New person", new_person_path, class: "btn btn-primary" %>
+    </div>
+
+    <div class="d-flex gap-2 d-none" data-bulk-actionable-target="hideWhenSelected">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        data-action="click->bulk-actionable#selectAll">
+        Select all
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        data-action="click->bulk-actionable#unselectAll">
+        Unselect all
+      </button>
+
+      <%= button_to "Destroy selected",
+            bulk_destroy_people_path,
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to delete selected people?" },
+            class: "btn btn-danger btn-sm" %>
+    </div>
+  </div>
+
+  <div id="people" class="row row-cols-1 row-cols-md-2 g-3">
+    <% @people.each do |person| %>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body d-flex">
+            <div class="form-check me-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="<%= person.id %>"
+                id="person-<%= person.id %>-checkbox"
+                data-bulk-actionable-target="itemCheckbox"
+                data-id="<%= person.id %>"
+                data-action="click->bulk-actionable#toggleItemCheckbox">
+            </div>
+
+            <div class="flex-grow-1">
+              <%= render person %>
+
+              <div class="mt-2">
+                <%= link_to "Show this person", person, class: "btn btn-sm btn-outline-secondary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

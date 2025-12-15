@@ -42,7 +42,8 @@ module BulkActionable
     private
 
     def bulk_action_session_key
-      key = "#{current_user.id}__#{controller_path}__bulk_action_item_ids"
+      session[:bulk_action_session_key] ||= SecureRandom.uuid
+      key = "#{session[:bulk_action_session_key]}__#{controller_path}__bulk_action_item_ids"
       key = "#{bulk_action_category}__#{key}" if bulk_action_category.present?
       key
     end

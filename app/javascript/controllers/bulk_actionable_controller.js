@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { post } from '../helpers/request_helper';
+import { post } from 'helpers/request_helper';
 
 
 // Connects to data-controller="bulk-actionable"
@@ -13,17 +13,11 @@ export default class extends Controller {
   };
 
   connect() {
-    if (this.selectedItemsValue.length > 0) {
-      this.hideWhenSelectedTarget.classList.remove("d-none");
-      this.showWhenSelectedTarget.classList.add("d-none");
-    } else {
-      this.hideWhenSelectedTarget.classList.add("d-none");
-      this.showWhenSelectedTarget.classList.remove("d-none");
-    }
+    this.#updateToolbarVisibility();
   }
 
   get currentPageItems() {
-    return this.itemCheckboxTargets.map(item => item.dataset.id);
+    return this.itemCheckboxTargets.map(item => Number(item.dataset.id));
   }
 
   get currentPageSelectedItems() {
@@ -33,7 +27,7 @@ export default class extends Controller {
   }
 
   itemCheckboxTargetConnected(element) {
-    if (this.selectedItemsValue.includes(element.dataset.id)) {
+    if (this.selectedItemsValue.includes(Number(element.dataset.id))) {
       element.checked = true;
     } else {
       element.checked = false;
@@ -46,26 +40,38 @@ export default class extends Controller {
 
   async selectAll() {
     await this.#sendSelection(this.currentPageItems, "check_all");
+    this.#updateMainCheckbox();
+    this.#updateToolbarVisibility();
   }
 
   async unselectAll() {
     await this.#sendSelection(this.currentPageItems, "uncheck_all");
+    this.#updateMainCheckbox();
+    this.#updateToolbarVisibility();
   }
 
-  async toggleMainCheckbox(element) {
+  async toggleMainCheckbox(event) {
+    const element = event.currentTarget;
+
     if (element.checked) {
       await this.#sendSelection(this.currentPageItems, "check");
     } else {
       await this.#sendSelection(this.currentPageItems, "uncheck");
     }
+
+    this.#updateMainCheckbox();
+    this.#updateToolbarVisibility();
   }
 
   async toggleItemCheckbox(event) {
     if (event.currentTarget.checked) {
-      await this.#sendSelection([event.currentTarget.dataset.id], "check");
+      await this.#sendSelection([Number(event.currentTarget.dataset.id)], "check");
     } else {
-      await this.#sendSelection([event.currentTarget.dataset.id], "uncheck");
+      await this.#sendSelection([Number(event.currentTarget.dataset.id)], "uncheck");
     }
+
+    this.#updateMainCheckbox();
+    this.#updateToolbarVisibility();
   }
 
   // action - check, uncheck, check_all, uncheck_all
@@ -74,11 +80,23 @@ export default class extends Controller {
     const requestParams = ["check_all", "uncheck_all"].includes(action) ? {} : { id: itemIds };
 
     try {
-      const { selected } = await post(`${this.controllerPath}/${controllerAction}`, requestParams);
+      const { selected } = await post(`${this.controllerPathValue}/${controllerAction}`, requestParams);
       this.selectedItemsValue = selected;
     } catch (error) {
       console.error('[bulk_actionable]', error);
       alert("Failed to update bulk action selection");
+    }
+  }
+
+  #updateToolbarVisibility() {
+    const hasSelection = this.selectedItemsValue.length > 0;
+
+    if (hasSelection) {
+      this.hideWhenSelectedTarget.classList.remove("d-none");
+      this.showWhenSelectedTarget.classList.add("d-none");
+    } else {
+      this.hideWhenSelectedTarget.classList.add("d-none");
+      this.showWhenSelectedTarget.classList.remove("d-none");
     }
   }
 

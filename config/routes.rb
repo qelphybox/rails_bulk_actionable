@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "people#index"
-  resources :people, concerns: :bulk_actionable
+
+  resources :people, concerns: :bulk_actionable do
+    delete :bulk_destroy, on: :collection
+  end
+
   resources :hobbies, concerns: :bulk_actionable
 end

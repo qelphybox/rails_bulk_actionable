@@ -5,7 +5,14 @@ class PeopleController < ApplicationController
 
   # GET /people
   def index
-    @people = Person.all
+    @people = bulk_action_scope
+  end
+
+  def bulk_destroy
+    bulk_action_selected_items.find_each(&:destroy!)
+    bulk_action_reset
+
+    redirect_to people_path, notice: "Selected people were successfully destroyed.", status: :see_other
   end
 
   # GET /people/1
@@ -56,5 +63,14 @@ class PeopleController < ApplicationController
     # Only allow a list of trusted parameters through.
     def person_params
       params.expect(person: [ :first_name, :last_name, :birth_date ])
+    end
+
+    # BulkActionable configuration
+    def bulk_action_scope
+      Person.all
+    end
+
+    def bulk_action_id_param
+      :id
     end
 end
