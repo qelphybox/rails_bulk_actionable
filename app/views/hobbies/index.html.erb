@@ -5,13 +5,6 @@
   <%= link_to "New hobby", new_hobby_path, class: "btn btn-primary" %>
 </div>
 
-<% if notice.present? %>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
-
 <div id="hobbies" class="row row-cols-1 row-cols-md-2 g-3">
   <% @hobbies.each do |hobby| %>
     <div class="col">
