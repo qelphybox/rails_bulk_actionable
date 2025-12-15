@@ -1,4 +1,6 @@
 class PeopleController < ApplicationController
+  include BulkActionable
+
   before_action :set_person, only: %i[ show edit update destroy ]
 
   # GET /people

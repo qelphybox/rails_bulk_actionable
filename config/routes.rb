@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  concern :bulk_actionable do
+    post :bulk_action_check, on: :collection
+    post :bulk_action_uncheck, on: :collection
+    post :bulk_action_check_all, on: :collection
+    post :bulk_action_uncheck_all, on: :collection
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,6 +18,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "people#index"
-  resources :people
-  resources :hobbies
+  resources :people, concerns: :bulk_actionable
+  resources :hobbies, concerns: :bulk_actionable
 end

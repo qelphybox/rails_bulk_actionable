@@ -1,4 +1,6 @@
 class HobbiesController < ApplicationController
+  include BulkActionable
+
   before_action :set_hobby, only: %i[ show edit update destroy ]
 
   # GET /hobbies
