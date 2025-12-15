@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @hobby %>
+
+<div>
+  <%= link_to "Edit this hobby", edit_hobby_path(@hobby) %> |
+  <%= link_to "Back to hobbies", hobbies_path %>
+
+  <%= button_to "Destroy this hobby", @hobby, method: :delete %>
+</div>

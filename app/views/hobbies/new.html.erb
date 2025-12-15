@@ -1,0 +1,11 @@
+<% content_for :title, "New hobby" %>
+
+<h1>New hobby</h1>
+
+<%= render "form", hobby: @hobby %>
+
+<br>
+
+<div>
+  <%= link_to "Back to hobbies", hobbies_path %>
+</div>
