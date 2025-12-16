@@ -31,12 +31,12 @@ module BulkActionable
       render json: { selected: bulk_action_item_ids.to_a }
     end
 
-    def bulk_action_category
-      @bulk_action_category ||= params[:category].presence&.to_sym
+    def bulk_action_group
+      @bulk_action_group ||= params[:group].presence&.to_sym
     end
 
-    def bulk_action_category=(value)
-      @bulk_action_category = value.to_sym
+    def bulk_action_group=(value)
+      @bulk_action_group = value.to_sym
     end
 
     private
@@ -44,7 +44,7 @@ module BulkActionable
     def bulk_action_session_key
       session[:bulk_action_session_key] ||= SecureRandom.uuid
       key = "#{session[:bulk_action_session_key]}__#{controller_path}__bulk_action_item_ids"
-      key = "#{bulk_action_category}__#{key}" if bulk_action_category.present?
+      key = "#{bulk_action_group}__#{key}" if bulk_action_group.present?
       key
     end
 
