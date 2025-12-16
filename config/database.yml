@@ -84,6 +84,7 @@ test:
 #
 production:
   <<: *default
+  host: db
   database: rails_bulk_actionable_production
   username: rails_bulk_actionable
   password: <%= puts '--------'; p ENV["RAILS_BULK_ACTIONABLE_DATABASE_PASSWORD"] %>
