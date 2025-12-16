@@ -1,0 +1,25 @@
+<div class="nested-form-wrapper mb-3 p-3 border rounded" data-new-record="<%= f.object.new_record? %>">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <%= f.label :contact_type, "Тип контакта", class: "form-label fw-medium" %>
+      <%= f.select :contact_type, 
+          options_for_select([["Email", "email"], ["Телефон", "phone"]], f.object.contact_type),
+          { prompt: "Выберите тип" },
+          { class: "form-select form-select-lg" } %>
+    </div>
+    <div class="col-md-7">
+      <%= f.label :contact_value, "Значение", class: "form-label fw-medium" %>
+      <%= f.text_field :contact_value, 
+          class: "form-control form-control-lg", 
+          placeholder: "Введите email или телефон" %>
+    </div>
+    <div class="col-md-1 d-flex align-items-end">
+      <%= f.hidden_field :_destroy %>
+      <%= f.hidden_field :id if f.object.persisted? %>
+      <button type="button" class="btn btn-outline-danger btn-lg w-100" data-action="nested-form#remove">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+

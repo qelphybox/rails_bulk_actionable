@@ -6,7 +6,46 @@
     </h2>
   </div>
   <div class="card-body p-4">
-    <%= render @person %>
+    <div class="mb-4">
+      <h3 class="fw-bold">
+        <%= [@person.first_name, @person.last_name].compact.join(" ") %>
+      </h3>
+      <% if @person.birth_date.present? %>
+        <p>
+          <strong>Дата рождения:</strong>
+          <%= @person.birth_date %>
+        </p>
+      <% end %>
+    </div>
+    <div class="mb-3">
+      <h5 class="fw-semibold">Контакты</h5>
+      <% if @person.contacts.any? %>
+        <ul class="list-unstyled mb-0">
+          <% @person.contacts.each do |contact| %>
+            <li>
+              <strong><%= contact.contact_type.capitalize %>:</strong>
+              <%= contact.contact_value %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <span class="text-muted">Нет контактов</span>
+      <% end %>
+    </div>
+    <div class="mb-3">
+      <h5 class="fw-semibold">Хобби</h5>
+      <% if @person.hobbies.any? %>
+        <ul class="list-inline mb-0">
+          <% @person.hobbies.each do |hobby| %>
+            <li class="list-inline-item badge rounded-pill bg-secondary bg-opacity-10 text-secondary border">
+              <%= hobby.name %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <span class="text-muted">Нет хобби</span>
+      <% end %>
+    </div>
   </div>
 </div>
 

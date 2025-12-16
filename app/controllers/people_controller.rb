@@ -22,15 +22,20 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @person.contacts.build
+    @hobbies = Hobby.all.order(:name)
   end
 
   # GET /people/1/edit
   def edit
+    @person.contacts.build if @person.contacts.empty?
+    @hobbies = Hobby.all.order(:name)
   end
 
   # POST /people
   def create
     @person = Person.new(person_params)
+    @hobbies = Hobby.all.order(:name)
 
     if @person.save
       redirect_to @person, notice: "Person was successfully created."
@@ -41,6 +46,8 @@ class PeopleController < ApplicationController
 
   # PATCH/PUT /people/1
   def update
+    @hobbies = Hobby.all.order(:name)
+
     if @person.update(person_params)
       redirect_to @person, notice: "Person was successfully updated.", status: :see_other
     else
@@ -62,7 +69,13 @@ class PeopleController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_params
-      params.expect(person: [ :first_name, :last_name, :birth_date ])
+      params.expect(person: [
+        :first_name,
+        :last_name,
+        :birth_date,
+        hobby_ids: [],
+        contacts_attributes: [ :id, :contact_type, :contact_value, :_destroy ]
+      ])
     end
 
     # BulkActionable configuration
