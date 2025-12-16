@@ -41,7 +41,6 @@ env:
     - RAILS_MASTER_KEY
     - RAILS_BULK_ACTIONABLE_DATABASE_PASSWORD
   clear:
-    RAILS_ENV: production
     APP_HOST: 111.111.111.111
   # clear:
   #   # Set number of cores available to the application on each server (default: 1).
