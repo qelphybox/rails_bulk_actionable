@@ -2,7 +2,7 @@
 service: rails_bulk_actionable
 
 # Name of the container image (use your-user/app-name on external registries).
-image: rails_bulk_actionable
+image: qelphybox/rails_bulk_actionable
 
 # Deploy to these servers.
 servers:
