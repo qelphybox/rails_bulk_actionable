@@ -5,7 +5,7 @@ class HobbiesController < ApplicationController
 
   # GET /hobbies
   def index
-    @hobbies = Hobby.all
+    @pagy, @hobbies = pagy(:offset, Hobby.all)
   end
 
   # GET /hobbies/1

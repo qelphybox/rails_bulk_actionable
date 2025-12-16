@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
 
   # GET /people
   def index
-    @people = bulk_action_scope
+    @pagy, @people = pagy(:offset, bulk_action_scope)
   end
 
   def bulk_destroy
