@@ -1,5 +1,5 @@
-<div id="<%= dom_id person %>">
-  <label for="person-<%= person.id %>-checkbox" class="d-flex align-items-center mb-3" role="button">
+<label for="person-<%= person.id %>-checkbox" id="<%= dom_id person %>" class="d-flex justify-content-between" role="button">
+  <div class="d-flex align-items-center mb-3">
     <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3 p-3" style="width: 60px; height: 60px;">
       <i class="bi bi-person text-primary fs-4"></i>
     </div>
@@ -10,9 +10,20 @@
       <% if person.birth_date.present? %>
         <p class="text-muted small mb-0">
           <i class="bi bi-calendar3 me-1"></i>
-          <%= person.birth_date %>
+          <%= person.age %> years old
         </p>
       <% end %>
     </div>
-  </label>
-</div>
+  </div>
+
+  <div class="form-check mt-1 p-0">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value="<%= person.id %>"
+      id="person-<%= person.id %>-checkbox"
+      data-bulk-actionable-target="itemCheckbox"
+      data-id="<%= person.id %>"
+      data-action="click->bulk-actionable#toggleItemCheckbox">
+  </div>
+</label>

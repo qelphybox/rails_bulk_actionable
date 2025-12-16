@@ -64,29 +64,16 @@
   <div id="people" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% @people.each do |person| %>
       <div class="col">
-        <div class="card h-100 shadow-sm border-0">
+        <div class="card h-100 shadow-sm border-0 rounded-3 bg-light">
           <div class="card-body">
-            <div class="d-flex align-items-start gap-3">
-              <div class="form-check mt-1">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value="<%= person.id %>"
-                  id="person-<%= person.id %>-checkbox"
-                  data-bulk-actionable-target="itemCheckbox"
-                  data-id="<%= person.id %>"
-                  data-action="click->bulk-actionable#toggleItemCheckbox">
-              </div>
+            <div class="flex-grow-1">
+              <%= render person %>
 
-              <div class="flex-grow-1">
-                <%= render person %>
-
-                <div class="mt-3">
-                  <%= link_to person, class: "btn btn-outline-primary btn-sm w-100" do %>
-                    <i class="bi bi-eye me-1"></i>
-                    View
-                  <% end %>
-                </div>
+              <div class="">
+                <%= link_to person, class: "btn btn-outline-primary btn-sm w-100" do %>
+                  <i class="bi bi-eye me-1"></i>
+                  View
+                <% end %>
               </div>
             </div>
           </div>

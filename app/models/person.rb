@@ -8,4 +8,17 @@ class Person < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :birth_date, presence: true
+
+  def age
+    return nil unless birth_date.present?
+
+    today = Date.today
+    age = today.year - birth_date.year
+
+    if today.month < birth_date.month || (today.month == birth_date.month && today.day < birth_date.day)
+      age -= 1
+    end
+
+    age
+  end
 end
