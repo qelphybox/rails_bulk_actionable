@@ -3,7 +3,7 @@ import { post } from 'helpers/request_helper';
 
 
 export default class extends Controller {
-  static targets = ["mainCheckbox", "itemCheckbox", "hideWhenSelected", "showWhenSelected"];
+  static targets = ["mainCheckbox", "itemCheckbox", "hideWhenSelected", "showWhenSelected", "selectedCount"];
 
   static values = {
     totalItems: Number,
@@ -66,6 +66,7 @@ export default class extends Controller {
 
     this.#updateMainCheckbox();
     this.#updateToolbarVisibility();
+    this.#updateSelectedCount();
   }
 
   async toggleItemCheckbox(event) {
@@ -77,6 +78,7 @@ export default class extends Controller {
 
     this.#updateMainCheckbox();
     this.#updateToolbarVisibility();
+    this.#updateSelectedCount();
   }
 
   async #sendSelection(itemIds, action) {
@@ -96,11 +98,11 @@ export default class extends Controller {
     const hasSelection = this.selectedItemsValue.length > 0;
 
     if (hasSelection) {
-      this.hideWhenSelectedTarget.classList.remove("d-none");
-      this.showWhenSelectedTarget.classList.add("d-none");
-    } else {
       this.hideWhenSelectedTarget.classList.add("d-none");
       this.showWhenSelectedTarget.classList.remove("d-none");
+    } else {
+      this.hideWhenSelectedTarget.classList.remove("d-none");
+      this.showWhenSelectedTarget.classList.add("d-none");
     }
   }
 
@@ -118,5 +120,9 @@ export default class extends Controller {
       this.mainCheckboxTarget.indeterminate = false;
       this.mainCheckboxTarget.checked = true;
     }
+  }
+
+  #updateSelectedCount() {
+    this.selectedCountTarget.textContent = this.selectedItemsValue.length;
   }
 }
