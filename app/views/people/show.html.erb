@@ -1,11 +1,26 @@
-<div class="card shadow-sm mb-3">
-  <div class="card-body">
+<div class="card shadow-sm border-0 mb-4">
+  <div class="card-header bg-white border-bottom py-3">
+    <h2 class="h4 mb-0 fw-bold">
+      <i class="bi bi-person me-2 text-primary fs-5"></i>
+      Информация о человеке
+    </h2>
+  </div>
+  <div class="card-body p-4">
     <%= render @person %>
   </div>
 </div>
 
 <div class="d-flex flex-wrap gap-2">
-  <%= link_to "Edit this person", edit_person_path(@person), class: "btn btn-primary" %>
-  <%= link_to "Back to people", people_path, class: "btn btn-outline-secondary" %>
-  <%= button_to "Destroy this person", @person, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
+  <%= link_to edit_person_path(@person), class: "btn btn-primary" do %>
+    <i class="bi bi-pencil me-1"></i>
+    Редактировать
+  <% end %>
+  <%= link_to people_path, class: "btn btn-outline-secondary" do %>
+    <i class="bi bi-arrow-left me-1"></i>
+    Назад к списку
+  <% end %>
+  <%= button_to @person, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Вы уверены?" } } do %>
+    <i class="bi bi-trash me-1"></i>
+    Удалить
+  <% end %>
 </div>

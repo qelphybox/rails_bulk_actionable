@@ -1,18 +1,41 @@
-<div id="<%= dom_id person %>" class="card h-100">
-  <div class="card-body">
-    <h2 class="h5 card-title mb-3">
-      <%= [person.first_name, person.last_name].compact.join(" ") %>
-    </h2>
+<div id="<%= dom_id person %>">
+  <div class="d-flex align-items-center mb-3">
+    <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3 p-3">
+      <i class="bi bi-person text-primary fs-4"></i>
+    </div>
+    <div>
+      <h3 class="h5 mb-0 fw-bold">
+        <%= [person.first_name, person.last_name].compact.join(" ") %>
+      </h3>
+      <% if person.birth_date.present? %>
+        <p class="text-muted small mb-0">
+          <i class="bi bi-calendar3 me-1"></i>
+          <%= person.birth_date %>
+        </p>
+      <% end %>
+    </div>
+  </div>
 
-    <dl class="row mb-0">
-      <dt class="col-sm-4">First name</dt>
-      <dd class="col-sm-8"><%= person.first_name %></dd>
-
-      <dt class="col-sm-4">Last name</dt>
-      <dd class="col-sm-8"><%= person.last_name %></dd>
-
-      <dt class="col-sm-4">Birth date</dt>
-      <dd class="col-sm-8"><%= person.birth_date %></dd>
-    </dl>
+  <div class="list-group list-group-flush">
+    <div class="list-group-item px-0 py-2 border-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-muted small">Имя</span>
+        <span class="fw-medium"><%= person.first_name %></span>
+      </div>
+    </div>
+    <div class="list-group-item px-0 py-2 border-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-muted small">Фамилия</span>
+        <span class="fw-medium"><%= person.last_name %></span>
+      </div>
+    </div>
+    <% if person.birth_date.present? %>
+      <div class="list-group-item px-0 py-2 border-0">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-muted small">Дата рождения</span>
+          <span class="fw-medium"><%= person.birth_date %></span>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

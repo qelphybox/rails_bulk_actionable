@@ -1,8 +1,14 @@
-<% content_for :title, "New hobby" %>
+<% content_for :title, "Новое хобби" %>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="h3 mb-0">New hobby</h1>
-  <%= link_to "Back to hobbies", hobbies_path, class: "btn btn-outline-secondary" %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h2 mb-0 fw-bold">
+    <i class="bi bi-heart-plus me-2 text-danger fs-3"></i>
+    Новое хобби
+  </h1>
+  <%= link_to hobbies_path, class: "btn btn-outline-secondary" do %>
+    <i class="bi bi-arrow-left me-1"></i>
+    Назад
+  <% end %>
 </div>
 
 <%= render "form", hobby: @hobby %>
