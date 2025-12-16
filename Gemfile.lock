@@ -113,6 +113,8 @@ GEM
     ed25519 (1.4.0)
     erb (6.0.0)
     erubi (1.13.1)
+    faker (3.5.3)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -363,6 +365,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails (~> 1.4)
   debug
+  faker (~> 3.5)
   image_processing (~> 1.2)
   importmap-rails
   kamal
