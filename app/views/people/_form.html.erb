@@ -46,25 +46,6 @@
     <hr class="my-4">
 
     <div class="mb-4">
-      <label class="form-label fw-medium mb-3">
-        <i class="bi bi-heart me-1"></i>
-        Хобби
-      </label>
-      <div class="row g-2">
-        <% @hobbies.each do |hobby| %>
-          <div class="col-md-4 col-lg-3">
-            <div class="form-check">
-              <%= form.check_box :hobby_ids, { multiple: true, checked: person.hobby_ids.include?(hobby.id) }, hobby.id, nil %>
-              <%= form.label "hobby_ids_#{hobby.id}", hobby.name, class: "form-check-label" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <hr class="my-4">
-
-    <div class="mb-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <label class="form-label fw-medium mb-0">
           <i class="bi bi-telephone me-1"></i>
@@ -86,6 +67,26 @@
         <% end %>
       </div>
     </div>
+
+    <hr class="my-4">
+
+    <div class="mb-4">
+      <label class="form-label fw-medium mb-3">
+        <i class="bi bi-heart me-1"></i>
+        Хобби
+      </label>
+      <div class="row g-2">
+        <% @hobbies.each do |hobby| %>
+          <div class="col-md-4 col-lg-3">
+            <div class="form-check">
+              <%= form.check_box :hobby_ids, { multiple: true, checked: person.hobby_ids.include?(hobby.id) }, hobby.id, nil %>
+              <%= form.label "hobby_ids_#{hobby.id}", hobby.name, class: "form-check-label" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
   </div>
   <div class="card-footer bg-white border-top py-3">
     <div class="d-flex gap-2">
