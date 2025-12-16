@@ -35,6 +35,15 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Install Node.js 18.x (for Rails asset pipeline and JS bundling)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get update -qq && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install Yarn
+RUN npm install -g yarn
+
 # Install application gems
 COPY Gemfile Gemfile.lock vendor ./
 
