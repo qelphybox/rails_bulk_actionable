@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
   <head>
     <title><%= content_for(:title) || "Rails Bulk Actionable" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -21,7 +21,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-light bg-gradient h-100 d-flex flex-column">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
       <div class="container">
         <a class="navbar-brand fw-bold" href="<%= root_path %>">
@@ -45,12 +45,18 @@
                 Hobbies
               <% end %>
             </li>
+            <li class="nav-item ms-3">
+              <%= link_to "https://github.com/qelphybox/rails_bulk_actionable", class: "nav-link ", target: "_blank", rel: "noopener" do %>
+                <i class="bi bi-github me-1"></i>
+                Source Code
+              <% end %>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <main class="container mb-5">
+    <main class="container mb-5 flex-grow-1">
       <% if notice.present? %>
         <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
           <i class="bi bi-check-circle me-2 fs-5"></i>
@@ -70,7 +76,7 @@
       <%= yield %>
     </main>
 
-    <footer class="bg-light border-top py-4 mt-5">
+    <footer class="footer bg-light border-top py-4 mt-5">
       <div class="container">
         <div class="row">
           <div class="col-md-6 mb-3 mb-md-0">
