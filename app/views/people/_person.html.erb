@@ -15,27 +15,4 @@
       <% end %>
     </div>
   </div>
-
-  <div class="list-group list-group-flush">
-    <div class="list-group-item px-0 py-2 border-0">
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="text-muted small">Имя</span>
-        <span class="fw-medium"><%= person.first_name %></span>
-      </div>
-    </div>
-    <div class="list-group-item px-0 py-2 border-0">
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="text-muted small">Фамилия</span>
-        <span class="fw-medium"><%= person.last_name %></span>
-      </div>
-    </div>
-    <% if person.birth_date.present? %>
-      <div class="list-group-item px-0 py-2 border-0">
-        <div class="d-flex justify-content-between align-items-center">
-          <span class="text-muted small">Дата рождения</span>
-          <span class="fw-medium"><%= person.birth_date %></span>
-        </div>
-      </div>
-    <% end %>
-  </div>
 </div>
