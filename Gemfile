@@ -65,3 +65,5 @@ gem "cssbundling-rails", "~> 1.4"
 gem "faker", "~> 3.5"
 
 gem "pagy", "~> 43.2"
+
+gem "ransack", "~> 4.4"

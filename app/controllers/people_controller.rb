@@ -4,7 +4,10 @@ class PeopleController < ApplicationController
   before_action :set_person, only: %i[ show edit update destroy ]
 
   def index
-    @pagy, @people = pagy(:offset, bulk_action_scope)
+    @scope = Person.all
+    @q = @scope.ransack(params[:q])
+
+    @pagy, @people = pagy(:offset, @q.result)
   end
 
   def bulk_destroy
