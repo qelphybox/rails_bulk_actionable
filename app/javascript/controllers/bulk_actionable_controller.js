@@ -42,6 +42,7 @@ export default class extends Controller {
     await this.#sendSelection(this.currentPageItems, "check_all");
     this.#updateMainCheckbox();
     this.#updateToolbarVisibility();
+    location.reload();
   }
 
   async unselectAll() {
