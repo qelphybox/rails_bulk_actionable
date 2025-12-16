@@ -86,4 +86,4 @@ production:
   <<: *default
   database: rails_bulk_actionable_production
   username: rails_bulk_actionable
-  password: <%= ENV["RAILS_BULK_ACTIONABLE_DATABASE_PASSWORD"] %>
+  password: <%= puts '--------'; p ENV["RAILS_BULK_ACTIONABLE_DATABASE_PASSWORD"] %>
