@@ -1,13 +1,13 @@
 <%= form_with(model: hobby, class: "card shadow-sm border-0") do |form| %>
   <div class="card-header bg-white border-bottom py-3">
-    <h3 class="h5 mb-0 fw-bold">Данные хобби</h3>
+    <h3 class="h5 mb-0 fw-bold">Hobby Data</h3>
   </div>
   <div class="card-body p-4">
     <% if hobby.errors.any? %>
       <div class="alert alert-danger border-0 shadow-sm">
         <h4 class="alert-heading h6 mb-2">
           <i class="bi bi-exclamation-triangle me-2 fs-5"></i>
-          Обнаружено <%= pluralize(hobby.errors.count, "ошибка", "ошибки", "ошибок") %>:
+          <%= pluralize(hobby.errors.count, "error") %> found:
         </h4>
         <ul class="mb-0">
           <% hobby.errors.each do |error| %>
@@ -20,15 +20,15 @@
     <div class="mb-4">
       <%= form.label :name, class: "form-label fw-medium" do %>
         <i class="bi bi-heart me-1"></i>
-        Название
+        Name
       <% end %>
-      <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Введите название хобби" %>
+      <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Enter hobby name" %>
     </div>
   </div>
   <div class="card-footer bg-white border-top py-3">
     <div class="d-flex gap-2">
-      <%= form.submit "Сохранить", class: "btn btn-primary btn-lg px-4" %>
-      <%= link_to "Отмена", hobbies_path, class: "btn btn-outline-secondary btn-lg" %>
+      <%= form.submit "Save", class: "btn btn-primary btn-lg px-4" %>
+      <%= link_to "Cancel", hobbies_path, class: "btn btn-outline-secondary btn-lg" %>
     </div>
   </div>
 <% end %>

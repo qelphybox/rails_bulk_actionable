@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 import { post } from 'helpers/request_helper';
 
 
-// Connects to data-controller="bulk-actionable"
 export default class extends Controller {
   static targets = ["mainCheckbox", "itemCheckbox", "hideWhenSelected", "showWhenSelected"];
 
@@ -79,7 +78,6 @@ export default class extends Controller {
     this.#updateToolbarVisibility();
   }
 
-  // action - check, uncheck, check_all, uncheck_all
   async #sendSelection(itemIds, action) {
     const controllerAction = `bulk_action_${action}`;
     const requestParams = ["check_all", "uncheck_all"].includes(action) ? {} : { id: itemIds };

@@ -49,7 +49,6 @@ module BulkActionable
     end
 
     def bulk_action_scope
-      # NOTE: i.e. current_org.users.web
       raise NotImplementedError
     end
 

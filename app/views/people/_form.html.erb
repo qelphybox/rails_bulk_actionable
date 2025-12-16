@@ -1,13 +1,13 @@
 <%= form_with(model: person, class: "card shadow-sm border-0", data: { controller: "nested-form", nested_form_wrapper_selector_value: ".nested-form-wrapper" }) do |form| %>
   <div class="card-header bg-white border-bottom py-3">
-    <h3 class="h5 mb-0 fw-bold">Данные человека</h3>
+    <h3 class="h5 mb-0 fw-bold">Person Data</h3>
   </div>
   <div class="card-body p-4">
     <% if person.errors.any? %>
       <div class="alert alert-danger border-0 shadow-sm">
         <h4 class="alert-heading h6 mb-2">
           <i class="bi bi-exclamation-triangle me-2 fs-5"></i>
-          Обнаружено <%= pluralize(person.errors.count, "ошибка", "ошибки", "ошибок") %>:
+          <%= pluralize(person.errors.count, "error") %> found:
         </h4>
         <ul class="mb-0">
           <% person.errors.each do |error| %>
@@ -21,23 +21,23 @@
       <div class="col-md-6">
         <%= form.label :first_name, class: "form-label fw-medium" do %>
           <i class="bi bi-person me-1"></i>
-          Имя
+          First Name
         <% end %>
-        <%= form.text_field :first_name, class: "form-control form-control-lg", placeholder: "Введите имя" %>
+        <%= form.text_field :first_name, class: "form-control form-control-lg", placeholder: "Enter first name" %>
       </div>
 
       <div class="col-md-6">
         <%= form.label :last_name, class: "form-label fw-medium" do %>
           <i class="bi bi-person-badge me-1"></i>
-          Фамилия
+          Last Name
         <% end %>
-        <%= form.text_field :last_name, class: "form-control form-control-lg", placeholder: "Введите фамилию" %>
+        <%= form.text_field :last_name, class: "form-control form-control-lg", placeholder: "Enter last name" %>
       </div>
 
       <div class="col-md-6">
         <%= form.label :birth_date, class: "form-label fw-medium" do %>
           <i class="bi bi-calendar3 me-1"></i>
-          Дата рождения
+          Birth Date
         <% end %>
         <%= form.date_field :birth_date, class: "form-control form-control-lg" %>
       </div>
@@ -49,11 +49,11 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <label class="form-label fw-medium mb-0">
           <i class="bi bi-telephone me-1"></i>
-          Контакты
+          Contacts
         </label>
         <button type="button" class="btn btn-sm btn-outline-primary" data-action="nested-form#add">
           <i class="bi bi-plus-circle me-1"></i>
-          Добавить контакт
+          Add Contact
         </button>
       </div>
       <template data-nested-form-target="template">
@@ -73,7 +73,7 @@
     <div class="mb-4">
       <label class="form-label fw-medium mb-3">
         <i class="bi bi-heart me-1"></i>
-        Хобби
+        Hobbies
       </label>
       <div class="row g-2">
         <% @hobbies.each do |hobby| %>
@@ -90,8 +90,8 @@
   </div>
   <div class="card-footer bg-white border-top py-3">
     <div class="d-flex gap-2">
-      <%= form.submit "Сохранить", class: "btn btn-primary btn-lg px-4" %>
-      <%= link_to "Отмена", people_path, class: "btn btn-outline-secondary btn-lg" %>
+      <%= form.submit "Save", class: "btn btn-primary btn-lg px-4" %>
+      <%= link_to "Cancel", people_path, class: "btn btn-outline-secondary btn-lg" %>
     </div>
   </div>
 <% end %>

@@ -3,7 +3,6 @@ class PeopleController < ApplicationController
 
   before_action :set_person, only: %i[ show edit update destroy ]
 
-  # GET /people
   def index
     @pagy, @people = pagy(:offset, bulk_action_scope)
   end
@@ -15,24 +14,20 @@ class PeopleController < ApplicationController
     redirect_to people_path, notice: "Selected people were successfully destroyed.", status: :see_other
   end
 
-  # GET /people/1
   def show
   end
 
-  # GET /people/new
   def new
     @person = Person.new
     @person.contacts.build
     @hobbies = Hobby.all.order(:name)
   end
 
-  # GET /people/1/edit
   def edit
     @person.contacts.build if @person.contacts.empty?
     @hobbies = Hobby.all.order(:name)
   end
 
-  # POST /people
   def create
     @person = Person.new(person_params)
     @hobbies = Hobby.all.order(:name)
@@ -44,7 +39,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # PATCH/PUT /people/1
   def update
     @hobbies = Hobby.all.order(:name)
     puts "params: #{params[:person][:contacts_attributes]}"
@@ -57,19 +51,16 @@ class PeopleController < ApplicationController
     end
   end
 
-  # DELETE /people/1
   def destroy
     @person.destroy!
     redirect_to people_path, notice: "Person was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def person_params
       params.require(:person).permit(
         :first_name,
@@ -80,7 +71,6 @@ class PeopleController < ApplicationController
       )
     end
 
-    # BulkActionable configuration
     def bulk_action_scope
       Person.all
     end

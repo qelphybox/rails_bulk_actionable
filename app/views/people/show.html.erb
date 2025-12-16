@@ -2,7 +2,7 @@
   <div class="card-header bg-white border-bottom py-3">
     <h2 class="h4 mb-0 fw-bold">
       <i class="bi bi-person me-2 text-primary fs-5"></i>
-      Информация о человеке
+      Person Information
     </h2>
   </div>
   <div class="card-body p-4">
@@ -12,13 +12,13 @@
       </h3>
       <% if @person.birth_date.present? %>
         <p>
-          <strong>Дата рождения:</strong>
+          <strong>Birth Date:</strong>
           <%= @person.birth_date %>
         </p>
       <% end %>
     </div>
     <div class="mb-3">
-      <h5 class="fw-semibold">Контакты</h5>
+      <h5 class="fw-semibold">Contacts</h5>
       <% if @person.contacts.any? %>
         <ul class="list-unstyled mb-0">
           <% @person.contacts.each do |contact| %>
@@ -29,11 +29,11 @@
           <% end %>
         </ul>
       <% else %>
-        <span class="text-muted">Нет контактов</span>
+        <span class="text-muted">No contacts</span>
       <% end %>
     </div>
     <div class="mb-3">
-      <h5 class="fw-semibold">Хобби</h5>
+      <h5 class="fw-semibold">Hobbies</h5>
       <% if @person.hobbies.any? %>
         <ul class="list-inline mb-0">
           <% @person.hobbies.each do |hobby| %>
@@ -43,7 +43,7 @@
           <% end %>
         </ul>
       <% else %>
-        <span class="text-muted">Нет хобби</span>
+        <span class="text-muted">No hobbies</span>
       <% end %>
     </div>
   </div>
@@ -52,14 +52,14 @@
 <div class="d-flex flex-wrap gap-2">
   <%= link_to edit_person_path(@person), class: "btn btn-primary" do %>
     <i class="bi bi-pencil me-1"></i>
-    Редактировать
+    Edit
   <% end %>
   <%= link_to people_path, class: "btn btn-outline-secondary" do %>
     <i class="bi bi-arrow-left me-1"></i>
-    Назад к списку
+    Back to List
   <% end %>
-  <%= button_to @person, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Вы уверены?" } } do %>
+  <%= button_to @person, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure?" } } do %>
     <i class="bi bi-trash me-1"></i>
-    Удалить
+    Delete
   <% end %>
 </div>
