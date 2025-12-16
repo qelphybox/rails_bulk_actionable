@@ -59,6 +59,10 @@ export default class extends Controller {
       await this.#sendSelection(this.currentPageItems, "uncheck");
     }
 
+    this.itemCheckboxTargets.forEach(item => {
+      item.checked = element.checked;
+    });
+
     this.#updateMainCheckbox();
     this.#updateToolbarVisibility();
   }
@@ -102,7 +106,7 @@ export default class extends Controller {
 
   #updateMainCheckbox() {
     const selectedCount = this.currentPageSelectedItems.length;
-    const totalCount = this.totalItemsValue;
+    const totalCount = this.currentPageItems.length;
 
     if (selectedCount === 0) {
       this.mainCheckboxTarget.checked = false;
