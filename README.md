@@ -124,7 +124,7 @@ end
 
 ## Advanced: Group Support
 
-Use categories to maintain separate selections for different contexts:
+Use groups to maintain separate selections for different contexts:
 
 ```ruby
 class ProductsController < ApplicationController
