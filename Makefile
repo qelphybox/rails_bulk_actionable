@@ -11,6 +11,7 @@ services-down!:
 prepare:
 	bundle install
 	bin/rails db:prepare
+	bin/rails db:seed
 
 dev:
 	bin/dev
