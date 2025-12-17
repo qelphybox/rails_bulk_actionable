@@ -56,7 +56,7 @@
       </div>
     </nav>
 
-    <main class="container mb-5 flex-grow-1">
+    <main class="container-fluid mb-5 flex-grow-1 px-3 px-md-4">
       <% if notice.present? %>
         <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
           <i class="bi bi-check-circle me-2 fs-5"></i>
@@ -72,8 +72,64 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       <% end %>
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="card shadow-sm border-0">
+            <div class="card-body d-flex flex-column">
+              <span class="badge bg-primary-subtle text-primary-emphasis mb-3">
+                <i class="bi bi-lightning-charge-fill me-1"></i>
+                BulkActionable Concern
+              </span>
 
-      <%= yield %>
+              <h1 class="h3 fw-bold mb-3">
+                Bulk selection that survives pagination
+              </h1>
+
+              <p class="text-muted mb-3">
+                In many Rails apps, users need to select records across several paginated pages
+                (for example to delete, archive or export them), but the selection is lost as soon
+                as you move to the next page or change filters.
+              </p>
+
+              <p class="text-muted mb-3">
+                <code>BulkActionable</code> solves this by storing selected IDs in cache, scoped to
+                the current session and controller. Users can freely navigate pages and contexts
+                while keeping their bulk selection intact until an action is performed.
+              </p>
+
+              <ul class="text-muted small mb-3 ps-3">
+                <li>Keep selections across paginated lists and filter changes</li>
+                <li>Separate selections per resource and optional groups</li>
+                <li>Stimulus controller for a smooth, modern UX</li>
+                <li>Ready-to-use REST endpoints and controller helpers</li>
+              </ul>
+
+              <div class="d-flex flex-wrap gap-2">
+                <%= link_to people_path, class: "btn btn-primary btn-sm" do %>
+                  <i class="bi bi-play-fill me-1"></i>
+                  Open People demo
+                <% end %>
+
+                <%= link_to hobbies_path, class: "btn btn-outline-secondary btn-sm" do %>
+                  <i class="bi bi-heart me-1"></i>
+                  Hobbies demo
+                <% end %>
+
+                <%= link_to "https://github.com/qelphybox/rails_bulk_actionable",
+                            class: "btn btn-outline-secondary btn-sm",
+                            target: "_blank", rel: "noopener" do %>
+                  <i class="bi bi-github me-1"></i>
+                  Docs on GitHub
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <%= yield %>
+        </div>
+      </div>
     </main>
 
     <footer class="footer bg-light border-top py-4 mt-5">
