@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-100">
+<html class="h-100" data-bs-theme="dark">
   <head>
     <title><%= content_for(:title) || "Rails Bulk Actionable" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -19,7 +19,13 @@
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-  </head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/ruby.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/html.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
 
   <body class="bg-body-secondary bg-gradient h-100 d-flex flex-column">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary lg-light mb-4 shadow-lg px-3 px-md-4">
@@ -71,7 +77,7 @@
         </div>
       <% end %>
       <div class="row g-4">
-        <div class="sticky-top col-lg-5">
+        <div class="col-lg-5 mb-3">
           <div class="card shadow-sm border-0">
             <div class="card-body d-flex flex-column">
               <span class="badge bg-primary-subtle text-primary-emphasis mb-3">
@@ -104,7 +110,7 @@
 
               <div class="mb-3">
                 <h2 class="h6 mb-2 text-primary-emphasis">Usage Example</h2>
-                <pre class="bg-light p-2 rounded small mb-2"><code>class PeopleController &lt; ApplicationController
+                <pre class="bg-light p-2 rounded small mb-2"><code class="language-ruby">class PeopleController &lt; ApplicationController
   include BulkActionable
 
   private
@@ -118,7 +124,7 @@
   end
 end
 </code></pre>
-                <pre class="bg-light p-2 rounded small mb-2"><code># config/routes.rb
+                <pre class="bg-light p-2 rounded small mb-2"><code class="language-ruby"># config/routes.rb
 Rails.application.routes.draw do
   concern :bulk_actionable do
     post :bulk_action_check, on: :collection
@@ -132,7 +138,7 @@ Rails.application.routes.draw do
   end
 end
 </code></pre>
-                <pre class="bg-light p-2 rounded small mb-2"><code>&lt;div
+                <pre class="bg-light p-2 rounded small mb-2"><code class="language-html">&lt;div
   data-controller="bulk-actionable"
   data-bulk-actionable-controller-path-value="&lt;%= people_path %&gt;"
   data-bulk-actionable-total-items-value="&lt;%= bulk_action_total_items %&gt;"
@@ -162,16 +168,6 @@ end
                 <div class="small text-muted">
                   See more in the <a href="https://github.com/qelphybox/rails_bulk_actionable" target="_blank" rel="noopener">README</a>.
                 </div>
-              </div>
-
-              <div class="d-flex flex-wrap gap-2">
-
-                <%= link_to "https://github.com/qelphybox/rails_bulk_actionable",
-                            class: "btn btn-outline-secondary btn-sm",
-                            target: "_blank", rel: "noopener" do %>
-                  <i class="bi bi-github me-1"></i>
-                  Docs on GitHub
-                <% end %>
               </div>
             </div>
           </div>
