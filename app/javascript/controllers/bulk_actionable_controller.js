@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { post } from 'helpers/request_helper';
 
-
 export default class extends Controller {
   static targets = ["mainCheckbox", "itemCheckbox", "hideWhenSelected", "showWhenSelected", "selectedCount"];
 
@@ -12,7 +11,7 @@ export default class extends Controller {
   };
 
   connect() {
-    this.#updateToolbarVisibility();
+    this.#renderToolbarVisibility();
   }
 
   get currentPageItems() {
@@ -20,9 +19,7 @@ export default class extends Controller {
   }
 
   get currentPageSelectedItems() {
-    const selectedItemsSet = new Set(this.selectedItemsValue)
-    const currentPageItemsSet = new Set(this.currentPageItems)
-    return Array.from(selectedItemsSet.intersection(currentPageItemsSet))
+    return this.itemCheckboxTargets.filter(item => item.checked);
   }
 
   itemCheckboxTargetConnected(element) {
@@ -34,51 +31,46 @@ export default class extends Controller {
   }
 
   mainCheckboxTargetConnected() {
-    this.#updateMainCheckbox(this.currentPageSelectedItems.length, this.totalItemsValue);
+    this.#renderMainCheckbox();
   }
 
   async selectAll() {
     await this.#sendSelection(this.currentPageItems, "check_all");
-    this.#updateMainCheckbox();
-    this.#updateToolbarVisibility();
     location.reload();
   }
 
   async unselectAll() {
     await this.#sendSelection(this.currentPageItems, "uncheck_all");
-    this.#updateMainCheckbox();
-    this.#updateToolbarVisibility();
     location.reload();
   }
 
   async toggleMainCheckbox(event) {
     const element = event.currentTarget;
 
+    this.itemCheckboxTargets.forEach(item => { item.checked = element.checked });    
+    this.#updateSelectedItems(this.currentPageItems, element.checked);
+    this.#renderToolbarVisibility();
+    this.#renderSelectedCount();
+    
     if (element.checked) {
       await this.#sendSelection(this.currentPageItems, "check");
     } else {
       await this.#sendSelection(this.currentPageItems, "uncheck");
-    }
-
-    this.itemCheckboxTargets.forEach(item => {
-      item.checked = element.checked;
-    });
-
-    this.#updateMainCheckbox();
-    this.#updateToolbarVisibility();
-    this.#updateSelectedCount();
+    }  
   }
 
   async toggleItemCheckbox(event) {
+    const element = event.currentTarget;
+    this.#updateSelectedItems([Number(element.dataset.id)], element.checked);
+    this.#renderMainCheckbox();
+    this.#renderToolbarVisibility();
+    this.#renderSelectedCount();
+
     if (event.currentTarget.checked) {
       await this.#sendSelection([Number(event.currentTarget.dataset.id)], "check");
     } else {
       await this.#sendSelection([Number(event.currentTarget.dataset.id)], "uncheck");
     }
-
-    this.#updateMainCheckbox();
-    this.#updateToolbarVisibility();
-    this.#updateSelectedCount();
   }
 
   async #sendSelection(itemIds, action) {
@@ -91,12 +83,21 @@ export default class extends Controller {
     } catch (error) {
       console.error('[bulk_actionable]', error);
       alert("Failed to update bulk action selection");
+      location.reload();
     }
   }
 
-  #updateToolbarVisibility() {
-    const hasSelection = this.selectedItemsValue.length > 0;
+  #updateSelectedItems(itemIds, checked) {
+    if (checked) {
+      this.selectedItemsValue = this.selectedItemsValue.concat(itemIds);
+    } else {
+      this.selectedItemsValue = this.selectedItemsValue.filter(item => !itemIds.includes(item));
+    }
+  }
 
+  #renderToolbarVisibility() {
+    const hasSelection = this.selectedItemsValue.length > 0;
+    
     if (hasSelection) {
       this.hideWhenSelectedTarget.classList.add("d-none");
       this.showWhenSelectedTarget.classList.remove("d-none");
@@ -106,8 +107,8 @@ export default class extends Controller {
     }
   }
 
-  #updateMainCheckbox() {
-    const selectedCount = this.currentPageSelectedItems.length;
+  #renderMainCheckbox() {
+    const selectedCount = new Set(this.selectedItemsValue).intersection(new Set(this.currentPageItems)).size; 
     const totalCount = this.currentPageItems.length;
 
     if (selectedCount === 0) {
@@ -122,7 +123,7 @@ export default class extends Controller {
     }
   }
 
-  #updateSelectedCount() {
+  #renderSelectedCount() {
     this.selectedCountTarget.textContent = this.selectedItemsValue.length;
   }
 }
