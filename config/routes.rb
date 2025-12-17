@@ -23,5 +23,7 @@ Rails.application.routes.draw do
     delete :bulk_destroy, on: :collection
   end
 
-  resources :hobbies, concerns: :bulk_actionable
+  resources :hobbies, concerns: :bulk_actionable do
+    delete :bulk_destroy, on: :collection
+  end
 end

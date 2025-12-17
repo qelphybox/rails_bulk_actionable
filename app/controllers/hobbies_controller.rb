@@ -7,6 +7,13 @@ class HobbiesController < ApplicationController
     @pagy, @hobbies = pagy(:offset, Hobby.all)
   end
 
+  def bulk_destroy
+    bulk_action_selected_items.find_each(&:destroy!)
+    bulk_action_reset
+
+    redirect_to hobbies_path, notice: "Selected hobbies were successfully destroyed.", status: :see_other
+  end
+
   def show
   end
 
@@ -47,5 +54,13 @@ class HobbiesController < ApplicationController
 
     def hobby_params
       params.expect(hobby: [ :name ])
+    end
+
+    def bulk_action_scope
+      Hobby.all
+    end
+
+    def bulk_action_id_param
+      :id
     end
 end

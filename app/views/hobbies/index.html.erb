@@ -1,34 +1,95 @@
 <% content_for :title, "Hobbies" %>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h2 mb-0 fw-bold">
-    <i class="bi bi-heart me-2 text-primary fs-3"></i>
-    Hobbies
-  </h1>
-  <%= link_to new_hobby_path, class: "btn btn-primary" do %>
-    <i class="bi bi-plus-circle me-1"></i>
-    New Hobby
-  <% end %>
-</div>
+<div
+  data-controller="bulk-actionable"
+  data-bulk-actionable-controller-path-value="<%= hobbies_path %>"
+  data-bulk-actionable-total-items-value="<%= bulk_action_total_items %>"
+  data-bulk-actionable-selected-items-value="<%= bulk_action_item_ids.to_a.to_json %>">
 
-<div id="hobbies" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-  <% @hobbies.each do |hobby| %>
-    <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <%= render hobby %>
-          <div class="mt-3">
-            <%= link_to hobby, class: "btn btn-outline-primary btn-sm w-100" do %>
-              <i class="bi bi-eye me-1"></i>
-              View
-            <% end %>
+  <div class="row g-2">
+    <div class="col-12 col-md-6 d-flex align-items-end gap-3 justify-content-md-start justify-content-between">
+      <h1 class="h2 mb-0 fw-bold">
+        <i class="bi bi-heart me-2 text-primary fs-3"></i>
+        Hobbies
+      </h1>
+      <%= link_to new_hobby_path, class: "btn btn-primary btn-sm", 'data-bulk-actionable-target': "hideWhenSelected" do %>
+        <i class="bi bi-plus-circle me-1"></i>
+        New Hobby
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row g-2 px-2 mt-1 mb-2">
+    <div class="col-12 col-md-2 form-check mb-0 py-1">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="hobbies-main-checkbox"
+        data-bulk-actionable-target="mainCheckbox"
+        data-action="click->bulk-actionable#toggleMainCheckbox">
+      <label class="form-check-label text-muted small" for="hobbies-main-checkbox">
+        Select page
+      </label>
+    </div>
+
+    <div class="col-12 col-md-10 d-flex flex-wrap gap-2 d-none justify-content-md-end justify-content-between pe-0" data-bulk-actionable-target="showWhenSelected">
+      <div class="align-self-center d-flex align-items-center gap-2 small text-muted">
+        <i class="bi bi-check2-square text-primary"></i>
+        <span>
+          selected
+          <span id="selected-counter" data-bulk-actionable-target="selectedCount"><%= bulk_action_item_ids.size %></span>
+          of <%= bulk_action_total_items %> <%= "hobby".pluralize(bulk_action_total_items) %>
+        </span>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary btn-sm"
+        data-action="click->bulk-actionable#selectAll">
+        <i class="bi bi-check-all me-1"></i>
+        Select All <%= bulk_action_total_items %> <%= "hobby".pluralize(bulk_action_total_items) %>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary btn-sm"
+        data-action="click->bulk-actionable#unselectAll">
+        <i class="bi bi-x-square me-1"></i>
+        Unselect All
+      </button>
+
+      <%= button_to bulk_destroy_hobbies_path,
+            method: :delete,
+            data: { turbo_confirm: "Are you sure you want to delete selected hobbies?" },
+            class: "btn btn-danger btn-sm" do %>
+        <i class="bi bi-trash me-1"></i>
+        Delete Selected
+      <% end %>
+    </div>
+  </div>
+
+  <div id="hobbies" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% @hobbies.each do |hobby| %>
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0 rounded-3">
+          <div class="card-body">
+            <div class="flex-grow-1">
+              <%= render hobby %>
+
+              <div class="">
+                <%= link_to hobby, class: "btn btn-outline-primary btn-sm w-100" do %>
+                  <i class="bi bi-eye me-1"></i>
+                  View
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 
-<div class="mt-5 d-flex justify-content-center">
-  <%== @pagy.series_nav(:bootstrap) %>
+  <div class="mt-3 d-flex justify-content-center">
+    <%== @pagy.series_nav(:bootstrap) %>
+  </div>
 </div>
