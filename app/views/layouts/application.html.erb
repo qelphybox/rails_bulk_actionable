@@ -27,7 +27,7 @@
     <script>hljs.highlightAll();</script>
 </head>
 
-  <body class="bg-body-secondary bg-gradient h-100 d-flex flex-column">
+  <body class="bg-body-secondary bg-gradient h-100 d-flex flex-column" data-controller="dark-theme">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient bg-opacity-75 lg-body-light mb-4 shadow-lg px-3 px-md-4">
       <a class="navbar-brand fw-bold" href="<%= root_path %>">
         <i class="bi bi-stack me-2 fs-5"></i>
@@ -55,6 +55,51 @@
               <i class="bi bi-github me-1"></i>
               Source Code and Info
             <% end %>
+          </li>
+          <li class="nav-item dropdown">
+            <button
+              class="btn btn-link nav-link text-white border-0 dropdown-toggle p-1"
+              type="button"
+              id="themeDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              data-dark-theme-target="dropdownButton"
+              aria-label="Theme mode"
+              title="Select theme mode">
+              <i class="bi bi-circle-half fs-5" data-dark-theme-target="icon"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-dark-theme-target="lightOption"
+                  data-action="click->dark-theme#setLight:prevent">
+                  <i class="bi bi-sun-fill me-2"></i>
+                  Light
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-dark-theme-target="darkOption"
+                  data-action="click->dark-theme#setDark:prevent">
+                  <i class="bi bi-moon-fill me-2"></i>
+                  Dark
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-dark-theme-target="autoOption"
+                  data-action="click->dark-theme#setAuto:prevent">
+                  <i class="bi bi-circle-half me-2"></i>
+                  Auto
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
