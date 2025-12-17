@@ -88,7 +88,7 @@ end
     data-action="click->bulk-actionable#toggleMainCheckbox">
 
   <!-- Action toolbar (shown when items selected) -->
-  <div data-bulk-actionable-target="hideWhenSelected">
+  <div data-bulk-actionable-target="showWhenSelected">
     <%= button_to bulk_destroy_people_path, method: :delete, 
           class: "btn btn-danger" do %>
       Delete Selected

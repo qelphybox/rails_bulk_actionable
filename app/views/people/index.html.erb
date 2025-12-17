@@ -56,7 +56,7 @@
       </div>
       <button
         type="button"
-        class="btn btn-outline-primary btn-sm"
+        class="btn btn-primary btn-sm"
         data-action="click->bulk-actionable#selectAll">
         <i class="bi bi-check-all me-1"></i>
         Select All <%= bulk_action_total_items %> <%= "person".pluralize(bulk_action_total_items) %>
@@ -64,7 +64,7 @@
 
       <button
         type="button"
-        class="btn btn-outline-secondary btn-sm"
+        class="btn btn-secondary btn-sm"
         data-action="click->bulk-actionable#unselectAll">
         <i class="bi bi-x-square me-1"></i>
         Unselect All
@@ -109,7 +109,7 @@
   <div id="people" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <% @people.each do |person| %>
       <div class="col">
-        <div class="card h-100 shadow-sm border-0 rounded-3 bg-light">
+        <div class="card h-100 shadow-sm border-0 rounded-3">
           <div class="card-body">
             <div class="flex-grow-1">
               <%= render person %>
