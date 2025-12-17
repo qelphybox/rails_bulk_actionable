@@ -1,5 +1,5 @@
 <%= form_with(model: hobby, class: "card shadow-sm border-0") do |form| %>
-  <div class="card-header bg-white border-bottom py-3">
+  <div class="card-header border-bottom py-3">
     <h3 class="h5 mb-0 fw-bold">Hobby Data</h3>
   </div>
   <div class="card-body p-4">
@@ -25,7 +25,7 @@
       <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Enter hobby name" %>
     </div>
   </div>
-  <div class="card-footer bg-white border-top py-3">
+  <div class="card-footer border-top py-3">
     <div class="d-flex gap-2">
       <%= form.submit "Save", class: "btn btn-primary btn-lg px-4" %>
       <%= link_to "Cancel", hobbies_path, class: "btn btn-outline-secondary btn-lg" %>
