@@ -28,6 +28,6 @@ class Person < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["birth_date", "created_at", "first_name", "full_name", "id", "last_name", "updated_at"]
+    [ "birth_date", "created_at", "first_name", "full_name", "id", "last_name", "updated_at" ]
   end
 end
