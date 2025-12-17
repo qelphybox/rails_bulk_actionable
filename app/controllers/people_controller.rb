@@ -44,8 +44,6 @@ class PeopleController < ApplicationController
 
   def update
     @hobbies = Hobby.all.order(:name)
-    puts "params: #{params[:person][:contacts_attributes]}"
-    puts "person_params: #{person_params.to_h}"
 
     if @person.update(person_params)
       redirect_to @person, notice: "Person was successfully updated.", status: :see_other

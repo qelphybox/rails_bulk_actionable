@@ -17,7 +17,7 @@ class HobbiesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create hobby" do
     assert_difference("Hobby.count") do
-      post hobbies_url, params: { hobby: { name: @hobby.name } }
+      post hobbies_url, params: { hobby: { name: "Bowling" } }
     end
 
     assert_redirected_to hobby_url(Hobby.last)
@@ -34,7 +34,7 @@ class HobbiesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update hobby" do
-    patch hobby_url(@hobby), params: { hobby: { name: @hobby.name } }
+    patch hobby_url(@hobby), params: { hobby: { name: "Bowling" } }
     assert_redirected_to hobby_url(@hobby)
   end
 
