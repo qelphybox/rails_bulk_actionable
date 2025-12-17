@@ -102,6 +102,68 @@
                 <li>Ready-to-use REST endpoints and controller helpers</li>
               </ul>
 
+              <div class="mb-3">
+                <h2 class="h6 mb-2 text-primary-emphasis">Usage Example</h2>
+                <pre class="bg-light p-2 rounded small mb-2"><code>class PeopleController &lt; ApplicationController
+  include BulkActionable
+
+  private
+
+  def bulk_action_scope
+    Person.all
+  end
+
+  def bulk_action_id_param
+    :id
+  end
+end
+</code></pre>
+                <pre class="bg-light p-2 rounded small mb-2"><code># config/routes.rb
+Rails.application.routes.draw do
+  concern :bulk_actionable do
+    post :bulk_action_check, on: :collection
+    post :bulk_action_uncheck, on: :collection
+    post :bulk_action_check_all, on: :collection
+    post :bulk_action_uncheck_all, on: :collection
+  end
+
+  resources :people, concerns: :bulk_actionable do
+    delete :bulk_destroy, on: :collection
+  end
+end
+</code></pre>
+                <pre class="bg-light p-2 rounded small mb-2"><code>&lt;div
+  data-controller="bulk-actionable"
+  data-bulk-actionable-controller-path-value="&lt;%= people_path %&gt;"
+  data-bulk-actionable-total-items-value="&lt;%= bulk_action_total_items %&gt;"
+  data-bulk-actionable-selected-items-value="&lt;%= bulk_action_item_ids.to_a.to_json %&gt;"&gt;
+
+  &lt;input
+    type="checkbox"
+    data-bulk-actionable-target="mainCheckbox"
+    data-action="click->bulk-actionable#toggleMainCheckbox"&gt;
+
+  &lt;div data-bulk-actionable-target="hideWhenSelected"&gt;
+    &lt;%= button_to bulk_destroy_people_path, method: :delete, 
+          class: "btn btn-danger" do %&gt;
+      Delete Selected
+    &lt;% end %&gt;
+  &lt;/div&gt;
+
+  &lt;% @people.each do |person| %&gt;
+    &lt;input
+      type="checkbox"
+      data-bulk-actionable-target="itemCheckbox"
+      data-id="&lt;%= person.id %&gt;"
+      data-action="click->bulk-actionable#toggleItemCheckbox"&gt;
+  &lt;% end %&gt;
+&lt;/div&gt;
+</code></pre>
+                <div class="small text-muted">
+                  See more in the <a href="https://github.com/qelphybox/rails_bulk_actionable" target="_blank" rel="noopener">README</a>.
+                </div>
+              </div>
+
               <div class="d-flex flex-wrap gap-2">
 
                 <%= link_to "https://github.com/qelphybox/rails_bulk_actionable",
